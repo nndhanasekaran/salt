@@ -1,0 +1,20 @@
+##Listing variables only for RedHat and Suse servers. Remaining flavours can be added anytime.
+
+{% set params = {
+    'RedHat': {
+      'srv': 'sshd',
+      'pkg': 'openssh-server',
+      'augpkg': 'python-augeas',
+      'sshconfig': '/etc/ssh/sshd_config',
+    },
+    'Suse': {
+      'srv': 'sshd',
+      'pkg': 'openssh',
+      'augpkg': 'python-augeas',
+      'sshconfig': '/etc/ssh/sshd_config',
+      },
+    }
+%}
+
+{% set sshd = params.get(grains.os_family) %}
+

@@ -1,0 +1,28 @@
+## DNS entry in /etc/hosts file of Linux server
+
+## If DNS servers are mentioned in grains, set grains value else set values from pillar. Grains has high priority.
+
+{% if grains['DNS_Server_1'] is defined and grains['DNS_Server_1'] != 'NO_ENTRY_IN_SPREADSHEET' %}
+{% set dns_server_1 = grains['DNS_Server_1'] %}
+{% else %}
+{% set dns_server_1 = pillar.dns.get('server[1]') %}
+{% endif %}
+
+{% if grains['DNS_Server_2'] is defined and grains['DNS_Server_2'] != 'NO_ENTRY_IN_SPREADSHEET' %}
+{% set dns_server_2 = grains['DNS_Server_2'] %}
+{% else %}
+{% set dns_server_2 = pillar.dns.get('server[2]') %}
+{% endif %}
+
+{% if grains['DNS_Server_3'] is defined and grains['DNS_Server_3'] != 'None' %}
+{% set dns_server_3 = grains['DNS_Server_3'] %}
+{% else %}
+{% set dns_server_3 = pillar.dns.get('server[3]') %}
+{% endif %}
+
+{% if grains['Domain_Name'] is defined and grains['Domain_Name'] != 'NO_ENTRY_IN_SPREADSHEET' %}
+{% set dns_domain = grains['Domain_Name'] %}
+{% else %}
+{% set dns_domain = pillar.dns.get('domain') %}
+{% endif %}
+

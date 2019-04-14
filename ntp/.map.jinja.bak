@@ -1,0 +1,22 @@
+{% set map = {
+    'RedHat': {
+        'client': 'ntp',
+        'server': 'ntpd',
+        'service': 'ntpd',
+        'ntp_conf': '/etc/ntp.conf',
+        'ntp_conf_src': 'salt://ntp/ntp_rhel.conf',
+    },
+    'Suse': {
+        'client': 'ntp',
+        'server': 'ntp',
+        'service': salt['grains.filter_by']({
+            '11.3': 'ntp',
+            '11.4': 'ntp',
+            'default': 'ntpd',
+        }, grain='osrelease'),
+        'ntp_conf': '/etc/ntp.conf',
+        'ntp_conf_src': 'salt://ntp/ntp_suse.conf',
+    },
+} %}
+
+{% set ntp = map.get(grains.os_family) %}
